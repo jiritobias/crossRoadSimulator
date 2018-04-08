@@ -11,13 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 class SemaphoreController(private val semaphoreRepository: SemaphoreRepository) {
 
     @GetMapping("/all")
-    fun getAll(): List<Semaphore> {
-        return semaphoreRepository.findAll();
-    }
+    fun getAll(): List<Semaphore> = semaphoreRepository.findAll()
 
 
 }
-
 
 
 //@GetMapping("/articles")
