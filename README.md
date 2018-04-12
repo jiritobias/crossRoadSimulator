@@ -1,17 +1,17 @@
 API
 
-root : '/button'
-GET         '/all'
-POST         '/click/{id}'
+root : '/button' <br />
+- GET         '/all' <br />
+- POST         '/click/{id}'<br />
 
 root : '/crossroad'
-GET         '/all'
-GET         '/{id}'
+- GET         '/all'
+- GET         '/{id}'
 
-root: '/semaphore'
-GET         '/all'
+- root: '/semaphore'
+- GET         '/all'
 
 root: '/sensore'
-GET         '/all'
-GET         '/{id}'
-POSt        '/action/{id}' 
+- GET         '/all'
+- GET         '/{id}'
+- POST        '/action/{id}' 
