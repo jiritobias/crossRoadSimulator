@@ -1,16 +1,19 @@
 package cz.muni.ib053.crossRoadSimulator.entity
 
 import cz.muni.ib053.crossRoadSimulator.enums.Color
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import cz.muni.ib053.crossRoadSimulator.enums.Position
+import javax.persistence.*
 
 @Entity
 class Semaphore(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
         val id: Long = 0,
 
-        val color: Color = Color.RED
+        val color: Color = Color.RED,
+
+        val position: Position = Position.UP,
+
+        @OneToOne
+        val sensor: Sensor = Sensor()
 )
 
