@@ -14,6 +14,10 @@ class Semaphore(
         val position: Position = Position.UP,
 
         @OneToOne
-        val sensor: Sensor = Sensor()
+        val sensor: Sensor = Sensor(),
+
+        @OneToOne
+        val button: Button = Button()
+
 )
 

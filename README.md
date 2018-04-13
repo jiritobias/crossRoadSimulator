@@ -15,3 +15,4 @@ root: '/sensore'
 - GET         '/all'
 - GET         '/{id}'
 - POST        '/action/{id}' 
+

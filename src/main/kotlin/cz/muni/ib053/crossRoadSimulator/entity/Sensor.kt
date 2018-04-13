@@ -10,5 +10,7 @@ import javax.persistence.Id
 class Sensor (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0
+    val id: Long = 0,
+
+    val active: Boolean = false
 )

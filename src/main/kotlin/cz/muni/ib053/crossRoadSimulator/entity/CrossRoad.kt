@@ -8,8 +8,5 @@ class CrossRoad (
         val id: Long = 0,
 
         @OneToMany(fetch = FetchType.LAZY)
-        val semaphores: List<Semaphore> = arrayListOf(),
-
-        @OneToMany(fetch = FetchType.LAZY)
-        val buttons : List<Button> = arrayListOf()
+        val semaphores: List<Semaphore> = arrayListOf()
 )
