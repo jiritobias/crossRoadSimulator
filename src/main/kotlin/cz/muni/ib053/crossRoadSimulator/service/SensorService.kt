@@ -6,5 +6,8 @@ import org.springframework.data.jpa.repository.Query
 
 interface SensorService {
 
+    /**
+     * @return CrossRoad with actual states.
+     */
     fun onSensorAction(sensor: Sensor): CrossRoad
 }

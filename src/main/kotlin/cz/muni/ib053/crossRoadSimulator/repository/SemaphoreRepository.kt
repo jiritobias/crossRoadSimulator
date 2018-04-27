@@ -13,8 +13,4 @@ import org.springframework.stereotype.Repository
  *  Semaphore repository.
  */
 @Repository
-interface SemaphoreRepository : JpaRepository<Semaphore, Long> {
-
-    @Query("SELECT * FROM semaphore s where s.sensor_id = :sensor", nativeQuery = true)
-    fun getBySensor(@Param("sensor") sensor: Sensor): Semaphore
-}
+interface SemaphoreRepository : JpaRepository<Semaphore, Long>
