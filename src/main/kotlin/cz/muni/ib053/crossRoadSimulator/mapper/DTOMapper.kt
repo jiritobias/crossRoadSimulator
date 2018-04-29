@@ -17,7 +17,6 @@ class DTOMapper : ConfigurableMapper(true) {
     override fun configure(factory: MapperFactory) {
         super.configure(factory)
 
-
         factory.classMap(ButtonDTO::class.java, Button::class.java).byDefault().register();
         factory.classMap(SemaphoreDTO::class.java, Semaphore::class.java).byDefault().register();
         factory.classMap(SensorDTO::class.java, Sensor::class.java).byDefault().register();

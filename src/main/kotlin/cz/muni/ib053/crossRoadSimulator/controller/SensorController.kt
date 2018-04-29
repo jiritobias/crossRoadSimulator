@@ -21,7 +21,10 @@ class SensorController(private val sensorRepository: SensorRepository,
     @PostMapping("/action/{id}")
     fun onSensorAction(@PathVariable(value = "id") sensorId: Long): ResponseEntity<CrossRoadDTO> {
         return sensorRepository.findById(sensorId)
-                .map { sensor -> ResponseEntity.ok(mapper.map(sensorService.onSensorAction(sensor), CrossRoadDTO::class.java)) }
+                .map { sensor ->
+                    ResponseEntity.ok(
+                            mapper.map(sensorService.onSensorAction(sensor), CrossRoadDTO::class.java))
+                }
                 .orElse(ResponseEntity.notFound().build())
     }
 }

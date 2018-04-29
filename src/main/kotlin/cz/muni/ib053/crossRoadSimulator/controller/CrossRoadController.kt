@@ -1,7 +1,6 @@
 package cz.muni.ib053.crossRoadSimulator.controller
 
 import cz.muni.ib053.crossRoadSimulator.DTO.CrossRoadDTO
-import cz.muni.ib053.crossRoadSimulator.entity.CrossRoad
 import cz.muni.ib053.crossRoadSimulator.mapper.DTOMapper
 import cz.muni.ib053.crossRoadSimulator.repository.CrossRoadRepository
 import org.springframework.http.ResponseEntity
@@ -17,7 +16,7 @@ class CrossRoadController(private val crossRoadRepository: CrossRoadRepository,
                           private val mapper: DTOMapper) {
 
     @GetMapping("/all")
-    fun getAll(): List<CrossRoad> = crossRoadRepository.findAll()
+    fun getAll(): List<CrossRoadDTO> = mapper.mapAsList(crossRoadRepository.findAll(), CrossRoadDTO::class.java)
 
     @GetMapping("/{id}")
     fun getCrossRoadById(@PathVariable(value = "id") crossRoadId: Long): ResponseEntity<CrossRoadDTO> = crossRoadRepository.findById(crossRoadId)
