@@ -15,6 +15,8 @@ import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 /**
+ * @author Jiri Tobias
+ *
  * Creates default (demo) data.
  */
 @Component

@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+
+/**
+ * @author Jiri Tobias
+ *
+ * Rest controller for sensor entity
+ */
 @RestController
 @RequestMapping("/sensor")
 class SensorController {
@@ -20,9 +26,17 @@ class SensorController {
     lateinit var mapper: DTOMapper
 
 
+    /**
+     * Returns all sensors in repository.
+     */
     @GetMapping("/all")
     fun getAll(): List<SensorDTO> = mapper.mapAsList(sensorRepository.findAll(), SensorDTO::class.java);
 
+    /**
+     * Handles sensor action
+     * @param sensorId id of source sensor
+     * @return updated crossroad or NotFound
+     */
     @PostMapping("/action/{id}")
     fun onSensorAction(@PathVariable(value = "id") sensorId: Long): ResponseEntity<CrossRoadDTO> {
         return sensorRepository.findById(sensorId)

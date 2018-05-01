@@ -6,6 +6,11 @@ import org.junit.runner.RunWith
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
+/**
+ * @author Jiri Tobias
+ *
+ * Tests for ButtonService.
+ */
 @RunWith(MockitoJUnitRunner.Silent::class)
 internal class ButtonServiceImplTest {
     @Before

@@ -8,8 +8,13 @@ import org.springframework.stereotype.Component
 import java.util.*
 import kotlin.concurrent.timerTask
 
+/**
+ * @author Jiri Tobias
+ * 
+ * Scheduler for managing periodic events on cross road.
+ */
 @Component
-class CrossRoadTimer {
+class CrossRoadScheduler {
     private var timer: Timer = Timer();
     @Autowired
     lateinit var crossRoadService: CrossRoadService

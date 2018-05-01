@@ -4,6 +4,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
+/**
+ * @author Jiri Tobias
+ *
+ * Tests for SensorService.
+ */
 @RunWith(MockitoJUnitRunner.Silent::class)
 internal class SensorServiceImplTest {
 

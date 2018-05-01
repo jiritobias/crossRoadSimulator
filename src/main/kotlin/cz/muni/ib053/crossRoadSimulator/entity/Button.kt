@@ -3,6 +3,8 @@ package cz.muni.ib053.crossRoadSimulator.entity
 import javax.persistence.*
 
 /**
+ * @author Jiri Tobias
+ *
  * Button entity.
  */
 @Entity

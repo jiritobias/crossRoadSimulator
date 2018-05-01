@@ -4,6 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 /**
+ * @author Jiri Tobias
+ *
  * Application entry point.
  */
 @SpringBootApplication

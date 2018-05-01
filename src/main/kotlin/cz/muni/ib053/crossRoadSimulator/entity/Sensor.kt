@@ -3,7 +3,9 @@ package cz.muni.ib053.crossRoadSimulator.entity
 import javax.persistence.*
 
 /**
- * Sensoro entity.
+ * @author Jiri Tobias
+ *
+ * Sensor entity.
  */
 @Entity
 @Table(name = "SENSOR")

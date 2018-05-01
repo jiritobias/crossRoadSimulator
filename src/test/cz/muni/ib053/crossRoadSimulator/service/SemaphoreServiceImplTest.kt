@@ -16,7 +16,11 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-
+/**
+ * @author Jiri Tobias
+ *
+ * Tests for SemaphoreService.
+ */
 @RunWith(MockitoJUnitRunner.Silent::class)
 internal class SemaphoreServiceImplTest {
 

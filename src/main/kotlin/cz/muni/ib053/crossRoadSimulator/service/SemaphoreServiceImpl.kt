@@ -15,7 +15,6 @@ class SemaphoreServiceImpl : SemaphoreService {
     @Autowired
     lateinit var semaphoreRepository: SemaphoreRepository
 
-
     override fun getNonRelatedSemaphores(semaphore: Semaphore, crossRoad: CrossRoad): List<Semaphore> {
         val semaphores = crossRoad.semaphores
         val nonRelatedSemaphores = mutableListOf<Semaphore>()
@@ -34,7 +33,7 @@ class SemaphoreServiceImpl : SemaphoreService {
         val semaphoreColor = semaphore.color
         val nonRelatedSemaphores = getNonRelatedSemaphores(semaphore, crossRoad)
 
-
+        // Inverse color for non related semaphores TODO
         nonRelatedSemaphores.forEach { s ->
             s.color = s.color.inverse()
         }
@@ -48,6 +47,7 @@ class SemaphoreServiceImpl : SemaphoreService {
         val allSemaphores = relatedSemaphores.toList() + semaphore + nonRelatedSemaphores;
         semaphoreRepository.saveAll(allSemaphores)
 
+        // Set and save
         crossRoad.semaphores = allSemaphores
         crossRoadRepository.save(crossRoad)
 

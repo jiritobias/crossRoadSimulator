@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-
+/**
+ * @author Jiri Tobias
+ *
+ * Rest controller for button entity
+ */
 @RestController
 @RequestMapping("/button")
 class ButtonController {
@@ -20,9 +24,17 @@ class ButtonController {
     @Autowired
     lateinit var mapper: DTOMapper
 
+    /**
+     * Returns all buttons in repository.
+     */
     @GetMapping("/all")
     fun getAll(): List<ButtonDTO> = mapper.mapAsList(buttonRepository.findAll(), ButtonDTO::class.java)
 
+    /**
+     * Handling button click action.
+     * @param buttonId source button id
+     * @return updated crossroad or NotFound
+     */
     @PostMapping("/click/{id}")
     fun buttonClick(@PathVariable(value = "id") buttonId: Long): ResponseEntity<CrossRoadDTO> {
         val button = buttonRepository.findById(buttonId)

@@ -7,6 +7,11 @@ import org.mockito.InjectMocks
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
+/**
+ * @author Jiri Tobias
+ *
+ * Tests for CrossRoadService.
+ */
 @RunWith(MockitoJUnitRunner.Silent::class)
 internal class CrossRoadServiceImplTest {
     @InjectMocks

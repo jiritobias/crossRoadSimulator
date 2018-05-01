@@ -1,6 +1,8 @@
 package cz.muni.ib053.crossRoadSimulator.enums
 
 /**
+ * @author Jiri Tobias
+ *
  * Enum represents semaphore's colors.
  */
 enum class Color {

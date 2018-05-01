@@ -1,6 +1,6 @@
 package cz.muni.ib053.crossRoadSimulator.service
 
-import cz.muni.ib053.crossRoadSimulator.CrossRoadTimer
+import cz.muni.ib053.crossRoadSimulator.CrossRoadScheduler
 import cz.muni.ib053.crossRoadSimulator.entity.Button
 import cz.muni.ib053.crossRoadSimulator.entity.CrossRoad
 import cz.muni.ib053.crossRoadSimulator.entity.Semaphore
@@ -22,7 +22,7 @@ class CrossRoadServiceImpl : CrossRoadService {
     @Autowired
     lateinit var semaphoreService: SemaphoreService
     @Autowired
-    lateinit var crossRoadTimer: CrossRoadTimer
+    lateinit var crossRoadScheduler: CrossRoadScheduler
 
 
     override fun refreshCrossRoadBySensor(sensor: Sensor): CrossRoad {
@@ -39,20 +39,29 @@ class CrossRoadServiceImpl : CrossRoadService {
         return crossRoad
     }
 
+    /**
+     * Refreshes timer.
+     */
     private fun refreshTimer() {
         // Schedule new timer
-        crossRoadTimer.runAfterSixSecondOnce()
-
+        crossRoadScheduler.runAfterSixSecondOnce()
     }
 
     override fun refreshCrossRoadByButton(button: Button): CrossRoad {
-        Timer().schedule(timerTask {
-            refreshCrossRoadByButtonTimer(button)
-        }, 1000 * 3)
+        val semaphore = semaphoreRepository.loadByButton(button.id)
+        if (semaphore.color == Color.RED) {
+            // we do not want refresh crossroad immediately
+            Timer().schedule(timerTask {
+                refreshCrossRoadByButtonTimer(button)
+            }, 1000 * 3)
+        }
 
         return crossRoadRepository.loadByButton(button.id)
     }
 
+    /**
+     * Refresh cross road by button timer.
+     */
     private fun refreshCrossRoadByButtonTimer(button: Button) {
         val crossRoad = crossRoadRepository.loadByButton(button.id)
         val semaphore = semaphoreRepository.loadByButton(button.id)
@@ -68,17 +77,23 @@ class CrossRoadServiceImpl : CrossRoadService {
         // else, nothing to do.. semaphore has already GREEN COLOR
     }
 
+    /**
+     * Schedule new timer that will be force executed.
+     */
     private fun forceScheduleButtonAction(button: Button) {
         // Cancel all actions
-        crossRoadTimer.cancel()
+        crossRoadScheduler.cancel()
         Timer().schedule(timerTask {
             val crossRoad = crossRoadRepository.loadByButton(button.id)
             val semaphore = semaphoreRepository.loadByButton(button.id)
             semaphoreService.changeSemaphoreAndRelated(semaphore, crossRoad)
-            crossRoadTimer.reinit()
+            crossRoadScheduler.reinit()
         }, 1000 * 5)
     }
 
+    /**
+     * @return TRUE, if semaphores has at least one sensor with active state.
+     */
     private fun hasActiveSensor(semaphores: List<Semaphore>): Boolean {
         for (semaphore in semaphores) {
             semaphore.sensor?.let {
@@ -97,6 +112,9 @@ class CrossRoadServiceImpl : CrossRoadService {
 
     }
 
+    /**
+     * Refresh crossroad
+     */
     private fun refreshCrossRoad(crossRoad: CrossRoad) {
         val semaphores = crossRoad.semaphores
 
@@ -107,13 +125,16 @@ class CrossRoadServiceImpl : CrossRoadService {
             }
             // else do nothing, COLOR is GREEN and active sensore, waiting to inactive sensor
 
-        } else {
+        } else { // not active sensors, we can switch semaphores
             val reverseSemaphores = reverseSemaphores(semaphores)
             crossRoad.semaphores = reverseSemaphores
             crossRoadRepository.save(crossRoad)
         }
     }
 
+    /**
+     * Reverse semaphore colors.
+     */
     private fun reverseSemaphores(semaphores: List<Semaphore>): List<Semaphore> {
         semaphores.forEach({ semaphore ->
             semaphore.color = semaphore.color.inverse()
@@ -122,11 +143,17 @@ class CrossRoadServiceImpl : CrossRoadService {
         return semaphores
     }
 
+    /**
+     * Refresh cross road with active sensor.
+     */
     private fun refreshCrossRoadBySemaphoreWithActiveSensor(semaphoreWithActiveSensor: Semaphore) {
         val crossRoad = crossRoadRepository.loadBySemaphore(semaphoreWithActiveSensor.id)
         semaphoreService.changeSemaphoreAndRelated(semaphoreWithActiveSensor, crossRoad)
     }
 
+    /**
+     * Returns semaphore with active sensor or null.
+     */
     private fun getSemaphoreWithActiveSensor(semaphores: List<Semaphore>): Semaphore? {
         for (semaphore in semaphores) {
             val sensor = semaphore.sensor

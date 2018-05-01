@@ -12,6 +12,11 @@ import ma.glasnost.orika.MapperFactory
 import ma.glasnost.orika.impl.ConfigurableMapper
 import org.springframework.stereotype.Component
 
+/**
+ * @author Jiri Tobias
+ *
+ * Mapper for mapping between DTOs and entities.
+ */
 @Component
 class DTOMapper : ConfigurableMapper(true) {
     override fun configure(factory: MapperFactory) {

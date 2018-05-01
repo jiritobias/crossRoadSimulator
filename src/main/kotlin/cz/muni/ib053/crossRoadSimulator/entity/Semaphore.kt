@@ -5,6 +5,8 @@ import cz.muni.ib053.crossRoadSimulator.enums.Position
 import javax.persistence.*
 
 /**
+ * @author Jiri Tobias
+ *
  * Semaphore entity
  */
 @Entity
