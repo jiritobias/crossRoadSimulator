@@ -5,9 +5,9 @@ import cz.muni.ib053.crossRoadSimulator.entity.CrossRoad
 import cz.muni.ib053.crossRoadSimulator.entity.Sensor
 
 interface CrossRoadService {
-    fun refreshCrossRoadByTimeout(crossRoad: CrossRoad): CrossRoad
+    fun refreshCrossRoadsByTimeout()
 
     fun refreshCrossRoadBySensor(sensor: Sensor): CrossRoad;
 
-    fun refreshCrossRoadByButton(button: Button): Button;
+    fun refreshCrossRoadByButton(button: Button): CrossRoad;
 }

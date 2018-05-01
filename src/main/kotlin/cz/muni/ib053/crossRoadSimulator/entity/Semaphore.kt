@@ -13,18 +13,18 @@ class Semaphore(
         @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
         val id: Long = 0,
 
-        val color: Color = Color.RED,
+        var color: Color = Color.RED,
 
         val position: Position = Position.UP,
 
-        @OneToOne(optional = true, fetch = FetchType.LAZY)
+        @OneToOne(optional = true)
         val sensor: Sensor? = null,
 
         @OneToOne
         val button: Button = Button(),
 
         @Column
-        @ElementCollection(targetClass=Semaphore::class)
+        @OneToMany(fetch = FetchType.EAGER)
         val relatedSemaphores: MutableSet<Semaphore> = mutableSetOf()
 
 
@@ -32,5 +32,27 @@ class Semaphore(
     fun addRelatedSemaphore(semaphore: Semaphore) {
         relatedSemaphores.add(semaphore)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Semaphore
+
+        if (id != other.id) return false
+        if (color != other.color) return false
+        if (position != other.position) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + color.hashCode()
+        result = 31 * result + position.hashCode()
+        return result
+    }
+
+
 }
 

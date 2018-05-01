@@ -12,6 +12,6 @@ class CrossRoad(
         val id: Long = 0,
 
         @Column
-        @ElementCollection(targetClass = Semaphore::class)
-        val semaphores: List<Semaphore> = arrayListOf()
+        @OneToMany(fetch = FetchType.EAGER)
+        var semaphores: List<Semaphore> = arrayListOf()
 )

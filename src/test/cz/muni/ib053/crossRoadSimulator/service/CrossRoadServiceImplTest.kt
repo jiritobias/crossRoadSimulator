@@ -1,24 +1,20 @@
 package cz.muni.ib053.crossRoadSimulator.service
 
-import cz.muni.ib053.crossRoadSimulator.CrossRoadSimulatorApplication
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit4.SpringRunner
+import org.mockito.InjectMocks
+import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(SpringRunner::class)
-@SpringBootTest(classes = arrayOf(CrossRoadSimulatorApplication::class),
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(MockitoJUnitRunner.Silent::class)
 internal class CrossRoadServiceImplTest {
-    @Autowired
-    lateinit var crossRoadService: CrossRoadService
+    @InjectMocks
+    lateinit var crossRoadService: CrossRoadServiceImpl
 
     @Before
     fun setUp() {
-        assertThat(crossRoadService).isNotNull()
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

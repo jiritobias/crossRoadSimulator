@@ -5,5 +5,14 @@ package cz.muni.ib053.crossRoadSimulator.enums
  */
 enum class Color {
     RED,
-    GREEN
+    GREEN;
+
+    fun inverse(): Color {
+        when (this) {
+            RED -> return GREEN
+            GREEN -> return RED
+
+            else -> throw UnsupportedOperationException("Cannot inverse color '$this'")
+        }
+    }
 }

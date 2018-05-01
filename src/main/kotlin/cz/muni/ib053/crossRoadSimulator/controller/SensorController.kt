@@ -5,14 +5,19 @@ import cz.muni.ib053.crossRoadSimulator.DTO.SensorDTO
 import cz.muni.ib053.crossRoadSimulator.mapper.DTOMapper
 import cz.muni.ib053.crossRoadSimulator.repository.SensorRepository
 import cz.muni.ib053.crossRoadSimulator.service.SensorService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/sensor")
-class SensorController(private val sensorRepository: SensorRepository,
-                       private val sensorService: SensorService,
-                       private val mapper: DTOMapper) {
+class SensorController {
+    @Autowired
+    lateinit var sensorRepository: SensorRepository
+    @Autowired
+    lateinit var sensorService: SensorService
+    @Autowired
+    lateinit var mapper: DTOMapper
 
 
     @GetMapping("/all")
