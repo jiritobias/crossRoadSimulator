@@ -206,3 +206,8 @@
 
 
 
+# DEVELOPMENT SETUP
+
+* create MYSQL schema with name:cross_road or rename schema in application.properties
+* setup login and password in applicaton.properties
+* run with command `mvn spring-boot:run`
