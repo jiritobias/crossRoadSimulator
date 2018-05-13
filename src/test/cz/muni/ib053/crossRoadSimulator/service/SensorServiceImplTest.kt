@@ -1,6 +1,7 @@
 package cz.muni.ib053.crossRoadSimulator.service
 
 import cz.muni.ib053.crossRoadSimulator.entity.Sensor
+import cz.muni.ib053.crossRoadSimulator.repository.SensorRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -8,7 +9,6 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -21,6 +21,8 @@ internal class SensorServiceImplTest {
 
     @InjectMocks
     lateinit var sensorService: SensorServiceImpl
+    @Mock
+    lateinit var sensorRepository: SensorRepository
 
     @Mock
     lateinit var crossRoadService: CrossRoadService
@@ -32,8 +34,7 @@ internal class SensorServiceImplTest {
         sensor = Sensor(id = 999, active = true)
 
         Mockito.`when`(crossRoadService.refreshCrossRoadBySensor(sensor)).thenReturn(null)
-
-        MockitoAnnotations.initMocks(this);
+        Mockito.`when`(sensorRepository.save(Mockito.any<Sensor>())).thenReturn(sensor)
     }
 
     @Test

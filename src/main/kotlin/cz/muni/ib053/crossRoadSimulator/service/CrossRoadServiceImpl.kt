@@ -53,7 +53,7 @@ class CrossRoadServiceImpl : CrossRoadService {
             // we do not want refresh crossroad immediately
             Timer().schedule(timerTask {
                 refreshCrossRoadByButtonTimer(button)
-            }, 1000 * 3)
+            }, 1000 * 3) // 3 seconds
         }
 
         return crossRoadRepository.loadByButton(button.id)
@@ -114,7 +114,7 @@ class CrossRoadServiceImpl : CrossRoadService {
     }
 
     /**
-     * Refresh crossroad
+     * Refresh crossroad.
      */
     fun refreshCrossRoad(crossRoad: CrossRoad) {
         val semaphores = crossRoad.semaphores

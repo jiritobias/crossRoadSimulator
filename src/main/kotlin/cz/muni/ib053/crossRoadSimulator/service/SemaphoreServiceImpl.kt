@@ -38,9 +38,11 @@ class SemaphoreServiceImpl : SemaphoreService {
             s.color = s.color.inverse()
         }
 
+        // Inverse related semaphore
         relatedSemaphores.forEach { relatedSemaphore ->
             relatedSemaphore.color = semaphoreColor.inverse()
         }
+        // Inverse the semaphore
         semaphore.color = semaphoreColor.inverse();
 
         // Related semaphores with current semaphore + notRelated, but changed

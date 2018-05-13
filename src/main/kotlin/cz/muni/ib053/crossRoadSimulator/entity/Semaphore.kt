@@ -27,12 +27,11 @@ class Semaphore(
 
         @Column
         @OneToMany(fetch = FetchType.EAGER)
-        val relatedSemaphores: MutableSet<Semaphore> = mutableSetOf()
+        val relatedSemaphores: MutableSet<Semaphore> = mutableSetOf()) {
 
-
-) {
     fun addRelatedSemaphore(semaphore: Semaphore) {
         relatedSemaphores.add(semaphore)
+
     }
 
     override fun equals(other: Any?): Boolean {

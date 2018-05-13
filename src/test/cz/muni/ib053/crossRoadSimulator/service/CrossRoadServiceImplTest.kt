@@ -7,6 +7,7 @@ import cz.muni.ib053.crossRoadSimulator.entity.Sensor
 import cz.muni.ib053.crossRoadSimulator.enums.Color
 import cz.muni.ib053.crossRoadSimulator.enums.Position
 import cz.muni.ib053.crossRoadSimulator.repository.CrossRoadRepository
+import cz.muni.ib053.crossRoadSimulator.repository.SemaphoreRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -26,9 +27,10 @@ internal class CrossRoadServiceImplTest {
 
     @InjectMocks
     lateinit var crossRoadService: CrossRoadServiceImpl
-
     @Mock
     lateinit var crossRoadRepository: CrossRoadRepository
+    @Mock
+    lateinit var semaphoreRepository: SemaphoreRepository
 
     lateinit var sensor: Sensor
     lateinit var sensor1: Sensor
@@ -48,7 +50,8 @@ internal class CrossRoadServiceImplTest {
         semaphore1 = Semaphore(id = 101, color = Color.GREEN, position = Position.DOWN, sensor = sensor1, button = button1)
         crossRoad = CrossRoad(999, semaphores = listOf(semaphore, semaphore1))
 
-        Mockito.`when`(crossRoadRepository.save(Mockito.nullable(CrossRoad::class.java))).thenReturn(crossRoad)
+        Mockito.`when`(crossRoadRepository.save(Mockito.any<CrossRoad>())).thenReturn(crossRoad)
+        Mockito.`when`(semaphoreRepository.save(Mockito.any<Semaphore>())).thenReturn(semaphore)
 
     }
 
