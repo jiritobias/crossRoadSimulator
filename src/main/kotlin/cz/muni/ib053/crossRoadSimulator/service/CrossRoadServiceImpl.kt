@@ -44,7 +44,7 @@ class CrossRoadServiceImpl : CrossRoadService {
      */
     private fun refreshTimer() {
         // Schedule new timer
-        crossRoadScheduler.runAfterSixSecondOnce()
+        crossRoadScheduler.runAfterThreeSecondOnce()
     }
 
     override fun refreshCrossRoadByButton(button: Button): CrossRoad {
@@ -71,6 +71,7 @@ class CrossRoadServiceImpl : CrossRoadService {
             if (hasActiveSensor(nonRelatedSemaphores)) {
                 forceScheduleButtonAction(button)
             } else {
+                crossRoadScheduler.reinit()
                 semaphoreService.changeSemaphoreAndRelated(semaphore, crossRoad)
             }
         }
@@ -115,7 +116,7 @@ class CrossRoadServiceImpl : CrossRoadService {
     /**
      * Refresh crossroad
      */
-    private fun refreshCrossRoad(crossRoad: CrossRoad) {
+    fun refreshCrossRoad(crossRoad: CrossRoad) {
         val semaphores = crossRoad.semaphores
 
         val semaphoreWithActiveSensor = getSemaphoreWithActiveSensor(semaphores)

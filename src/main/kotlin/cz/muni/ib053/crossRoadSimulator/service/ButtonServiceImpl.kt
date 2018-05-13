@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class ButtonServiceImpl : ButtonService {
     @Autowired
-    lateinit var  crossRoadService: CrossRoadService
+    lateinit var crossRoadService: CrossRoadService
 
     override fun onButtonAction(button: Button): CrossRoad {
         return crossRoadService.refreshCrossRoadByButton(button)

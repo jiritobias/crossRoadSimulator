@@ -14,10 +14,8 @@ class SensorServiceImpl : SensorService {
     lateinit var crossRoadService: CrossRoadService
 
     override fun onSensorAction(sensor: Sensor): CrossRoad {
-        synchronized(this) {
-            inverseSensoreActiveValueAndSave(sensor)
-            return crossRoadService.refreshCrossRoadBySensor(sensor)
-        }
+        inverseSensoreActiveValueAndSave(sensor)
+        return crossRoadService.refreshCrossRoadBySensor(sensor)
     }
 
 

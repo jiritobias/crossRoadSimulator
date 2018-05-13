@@ -19,27 +19,39 @@ class CrossRoadScheduler {
     @Autowired
     lateinit var crossRoadService: CrossRoadService
 
-    private val DELAY_IN_SECONDS: Long = 1000 * 20
-    private val SIX_SECOND_DELAY: Long = 1000 * 6
+    private val DELAY_IN_SECONDS: Long = 1000 * 10
+    private val THREE_SECOND_DELAY: Long = 1000 * 3
 
+    /**
+     * Startafter application start.
+     */
     @EventListener(ApplicationReadyEvent::class)
     fun runTimer() {
         timer.scheduleAtFixedRate(timerTask { crossRoadService.refreshCrossRoadsByTimeout() }, DELAY_IN_SECONDS, DELAY_IN_SECONDS)
     }
 
-    fun runAfterSixSecondOnce() {
+    /**
+     * Run scheduler again after 3s.
+     */
+    fun runAfterThreeSecondOnce() {
         timer.cancel();
         timer = Timer()
         timer.schedule(timerTask {
             crossRoadService.refreshCrossRoadsByTimeout()
             runTimer()
-        }, SIX_SECOND_DELAY)
+        }, THREE_SECOND_DELAY)
     }
 
+    /**
+     * Cancel timer.
+     */
     fun cancel() {
         timer.cancel()
     }
 
+    /**
+     * Reinit timer.
+     */
     fun reinit(){
         timer = Timer()
         runTimer()
