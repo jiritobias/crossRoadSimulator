@@ -1,0 +1,20 @@
+package cz.muni.ib053.crossRoadSimulator.enums
+
+/**
+ * @author Jiri Tobias
+ *
+ * Enum represents semaphore's colors.
+ */
+enum class Color {
+    RED,
+    GREEN;
+
+    fun inverse(): Color {
+        when (this) {
+            RED -> return GREEN
+            GREEN -> return RED
+
+            else -> throw UnsupportedOperationException("Cannot inverse color '$this'")
+        }
+    }
+}

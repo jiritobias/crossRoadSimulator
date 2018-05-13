@@ -1,0 +1,57 @@
+// JSON representation of object CrossRoad
+
+[
+  {
+    "id": 1,
+    "semaphores": [
+      {
+        "id": 1,
+        "color": "GREEN",
+        "position": "UP",
+        "sensor": {
+          "id": 1,
+          "active": false
+        },
+        "button": {
+          "id": 1
+        }
+      },
+      {
+        "id": 2,
+        "color": "RED",
+        "position": "DOWN",
+        "sensor": {
+          "id": 2,
+          "active": false
+        },
+        "button": {
+          "id": 2
+        }
+      },
+      {
+        "id": 3,
+        "color": "RED",
+        "position": "LEFT",
+        "sensor": {
+          "id": 3,
+          "active": false
+        },
+        "button": {
+          "id": 3
+        }
+      },
+      {
+        "id": 4,
+        "color": "GREEN",
+        "position": "RIGHT",
+        "sensor": {
+          "id": 4,
+          "active": false
+        },
+        "button": {
+          "id": 4
+        }
+      }
+    ]
+  }
+]
