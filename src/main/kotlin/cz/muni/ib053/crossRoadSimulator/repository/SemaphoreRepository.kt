@@ -13,10 +13,16 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface SemaphoreRepository : JpaRepository<Semaphore, Long>{
+    /**
+     * Load semaphore by sensor.
+     */
     @Query(value = "SELECT * from semaphore where sensor_id = :sensor_id",
             nativeQuery = true)
     fun loadBySensor(@Param(value = "sensor_id") sensor: Long): Semaphore
 
+    /**
+     * Load semaphore by button.
+     */
     @Query(value = "SELECT * from semaphore where button_id = :button_id",
             nativeQuery = true)
     fun loadByButton(@Param(value = "button_id") button: Long): Semaphore

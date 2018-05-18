@@ -1,6 +1,7 @@
 package cz.muni.ib053.crossRoadSimulator.service
 
 import cz.muni.ib053.crossRoadSimulator.CrossRoadScheduler
+
 import cz.muni.ib053.crossRoadSimulator.entity.Button
 import cz.muni.ib053.crossRoadSimulator.entity.CrossRoad
 import cz.muni.ib053.crossRoadSimulator.entity.Semaphore
@@ -23,6 +24,10 @@ class CrossRoadServiceImpl : CrossRoadService {
     lateinit var semaphoreService: SemaphoreService
     @Autowired
     lateinit var crossRoadScheduler: CrossRoadScheduler
+
+
+    private val THREE_SECONDS: Long = 1000 * 3
+    private val FIVE_SECONDS: Long = 1000 * 5
 
 
     override fun refreshCrossRoadBySensor(sensor: Sensor): CrossRoad {
@@ -53,7 +58,7 @@ class CrossRoadServiceImpl : CrossRoadService {
             // we do not want refresh crossroad immediately
             Timer().schedule(timerTask {
                 refreshCrossRoadByButtonTimer(button)
-            }, 1000 * 3) // 3 seconds
+            }, THREE_SECONDS) // 3 seconds
         }
 
         return crossRoadRepository.loadByButton(button.id)
@@ -89,7 +94,7 @@ class CrossRoadServiceImpl : CrossRoadService {
             val semaphore = semaphoreRepository.loadByButton(button.id)
             semaphoreService.changeSemaphoreAndRelated(semaphore, crossRoad)
             crossRoadScheduler.reinit()
-        }, 1000 * 5)
+        }, FIVE_SECONDS)
     }
 
     /**
