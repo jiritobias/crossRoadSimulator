@@ -33,7 +33,7 @@ class SemaphoreServiceImpl : SemaphoreService {
         val semaphoreColor = semaphore.color
         val nonRelatedSemaphores = getNonRelatedSemaphores(semaphore, crossRoad)
 
-        // Inverse color for non related semaphores TODO
+        // Inverse color for non related semaphores
         nonRelatedSemaphores.forEach { s ->
             s.color = s.color.inverse()
         }
