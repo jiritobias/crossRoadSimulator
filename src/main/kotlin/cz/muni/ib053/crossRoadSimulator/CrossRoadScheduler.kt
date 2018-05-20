@@ -10,7 +10,7 @@ import kotlin.concurrent.timerTask
 
 /**
  * @author Jiri Tobias
- * 
+ *
  * Scheduler for managing periodic events on cross road.
  */
 @Component

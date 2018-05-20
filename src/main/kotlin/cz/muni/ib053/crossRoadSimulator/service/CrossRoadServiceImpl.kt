@@ -32,15 +32,15 @@ class CrossRoadServiceImpl : CrossRoadService {
 
     override fun refreshCrossRoadBySensor(sensor: Sensor): CrossRoad {
         val crossRoad = crossRoadRepository.loadBySensor(sensor.id)
+        val semaphore = semaphoreRepository.loadBySensor(sensor.id)
 
-        if (sensor.active) {
-            val semaphore = semaphoreRepository.loadBySensor(sensor.id)
-            if (semaphore.color == Color.RED) {
+        if (semaphore.color == Color.GREEN) {
+            if (!sensor.active) {
                 refreshTimer()
             }
-            // else do nothing, color is GREEN and sensor is active
-
         }
+        // else do nothing, color is RED, person can go
+
         return crossRoad
     }
 
@@ -54,7 +54,7 @@ class CrossRoadServiceImpl : CrossRoadService {
 
     override fun refreshCrossRoadByButton(button: Button): CrossRoad {
         val semaphore = semaphoreRepository.loadByButton(button.id)
-        if (semaphore.color == Color.RED) {
+        if (semaphore.color == Color.GREEN) {
             // we do not want refresh crossroad immediately
             Timer().schedule(timerTask {
                 refreshCrossRoadByButtonTimer(button)
@@ -72,7 +72,7 @@ class CrossRoadServiceImpl : CrossRoadService {
         val semaphore = semaphoreRepository.loadByButton(button.id)
         val nonRelatedSemaphores = semaphoreService.getNonRelatedSemaphores(semaphore, crossRoad)
 
-        if (semaphore.color == Color.RED) {
+        if (semaphore.color == Color.GREEN) {
             if (hasActiveSensor(nonRelatedSemaphores)) {
                 forceScheduleButtonAction(button)
             } else {
@@ -129,7 +129,7 @@ class CrossRoadServiceImpl : CrossRoadService {
             if (semaphoreWithActiveSensor.color == Color.RED) {
                 refreshCrossRoadBySemaphoreWithActiveSensor(semaphoreWithActiveSensor)
             }
-            // else do nothing, COLOR is GREEN and active sensore, waiting to inactive sensor
+            // else do nothing, COLOR is GREEN and active sensor, waiting to inactive sensor
 
         } else { // not active sensors, we can switch semaphores
             val reverseSemaphores = reverseSemaphores(semaphores)
